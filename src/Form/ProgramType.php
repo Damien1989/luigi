@@ -3,11 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Program;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ProgramType extends AbstractType
 {
@@ -16,17 +18,33 @@ class ProgramType extends AbstractType
         $builder
             ->add('title', TextType::class,
             [
-                'label'=> 'Titre',
-                'attr'=> [
-                    'class' => 'p-3 rounded-3 border mb-3 shadow-none',
-                    'placeholder' => 'Entrez le titre...'
+                'label' => 'Votre titre',
+                'constraints' => new Length(10, 2, 30),
+                'attr' => [
+                    'placeholder' => 'Merci de saisir le titre de votre programme...'
+                ]
+            ])
+            ->add('synopsis', TextType::class,
+            [
+                'label' => 'Le synopsis',
+                'constraints' => new Length(10, 2, 100),
+                'attr' => [
+                    'placeholder' => 'Merci de saisir le synopsis du programme...'
                 ]
             ]
+
             )
-            ->add('synopsis')
-            ->add('poster')
+            ->add('poster', TextType::class,
+            [
+                'label'=> 'Votre image'
+            ])
             ->add('year')
-            ->add('country')
+            ->add('country', CountryType::class, [
+                'label' => 'Pays',
+                'attr' => [
+        'placeholder' => 'Votre pays'
+                    ]
+    ])
             ->add('category', null, ['choice_label' => 'name'])
         ;
     }

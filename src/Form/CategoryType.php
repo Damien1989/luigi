@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class CategoryType extends AbstractType
 {
@@ -15,10 +16,10 @@ class CategoryType extends AbstractType
         $builder
             ->add('name', TextType::class,
                 [
-                    'label'=> 'Titre',
-                    'attr'=> [
-                        'class' => 'p-3 rounded-3 border mb-3 shadow-none',
-                        'placeholder' => 'Entrez le titre...'
+                    'label' => 'Votre prénom',
+                    'constraints' => new Length(10, 2, 30),
+                    'attr' => [
+                        'placeholder' => 'Merci de saisir votre prénom...'
                     ]
                 ]
             );
